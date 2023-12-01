@@ -12,7 +12,18 @@ fn main() {
 
 fn compute(input: &str) -> Option<()> {
 
-    println!("{}", input);
+    let mut a = 0;
+    for line in input.lines() {
+        let mut iter = line.chars().filter(|x| x.is_numeric());
 
+        let first = iter.next().unwrap();
+        let last = iter.last().unwrap_or(first);
+        let mut together = first.to_string();
+        together.push(last);
+
+        a += together.parse::<i32>().unwrap();
+    }
+    
+    println!("{}", a);
     None
 }
