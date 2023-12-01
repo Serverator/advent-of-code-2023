@@ -1,5 +1,3 @@
-use std::fmt::Debug;
-
 fn main() {
     let run_example = std::env::args().any(|arg| arg == "--ex");
 
