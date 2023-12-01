@@ -1,17 +1,43 @@
 fn main() {
     let run_example = std::env::args().any(|arg| arg == "--ex");
+    let part_two = std::env::args().any(|arg| arg == "--p2");
 
     let input = if run_example {
-        std::fs::read_to_string("./example.txt").unwrap()
+        if part_two {
+            std::fs::read_to_string("./example_2.txt").unwrap()
+        } else {
+            std::fs::read_to_string("./example_1.txt").unwrap()
+        }
     } else {
         std::fs::read_to_string("./input.txt").unwrap()
     };
 
-    compute(&input);
+    if part_two {
+        part2(&input);
+    } else {
+        part1(&input);
+    }
+    
 }
 
-fn compute(input: &str) -> Option<()> {
+fn part1(input: &str) {
+    let mut a = 0;
+    for line in input.lines() {
+        let mut iter = line.chars().filter(|x| x.is_numeric());
 
+
+        let first = iter.next().unwrap();
+        let last = iter.last().unwrap_or(first);
+        let mut together = first.to_string();
+        together.push(last);
+
+        a += together.parse::<i32>().unwrap();
+    }
+
+    println!("{}", a);
+}
+
+fn part2(input: &str) {
     let mut a = 0;
     for line in input.lines() {
 
@@ -38,11 +64,10 @@ fn compute(input: &str) -> Option<()> {
 
         let first = vec.first().unwrap();
         let last = vec.last().unwrap();
-        let mut together = first.to_string() + last.to_string().as_str();
+        let together = first.to_string() + last.to_string().as_str();
 
         a += together.parse::<i32>().unwrap();
     }
     
     println!("{}", a);
-    None
 }
