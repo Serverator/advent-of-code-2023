@@ -24,9 +24,9 @@ fn main() {
 
 fn part1(input: &str) {
     let result = input.lines().map(|l| {
-        let vec: Vec<_> = l.chars().filter(|c| c.is_numeric()).collect();
-        format!("{}{}", vec.first().unwrap(), vec.last().unwrap()).parse::<i32>().unwrap()
-    }).sum::<i32>();
+        let vec: Vec<_> = l.chars().filter(|c| c.is_numeric()).map(|x| x.to_digit(10).unwrap()).collect();
+        vec.first().unwrap() * 10 + vec.last().unwrap()
+    }).sum::<u32>();
 
     println!("{}", result);
 }
@@ -62,8 +62,9 @@ fn part2(input: &str) {
                 }
             }
         }
-        format!("{}{}", vec.first().unwrap(), vec.last().unwrap()).parse::<i32>().unwrap()
-    }).sum::<i32>();
+
+        vec.first().unwrap() * 10 + vec.last().unwrap()
+    }).sum::<u32>();
 
     println!("{}", result);
 }
